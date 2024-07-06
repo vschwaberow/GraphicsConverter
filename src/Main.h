@@ -19,6 +19,8 @@
 #include "Converter.h"
 #include "ColorReducer.h"
 #include "Dithering.h"
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/basic_file_sink.h>
 
 struct Image
 {
@@ -29,9 +31,17 @@ struct Image
     GLuint textureID;
 };
 
+GLuint originalTextureID = 0;
+GLuint convertedTextureID = 0;
+int originalImageWidth = 0;
+int originalImageHeight = 0;
+int convertedImageWidth = 0;
+int convertedImageHeight = 0;
+
 Image originalImage;
 Image processedImage;
 bool imageLoaded = false;
+bool showDebugWindow = false;
 
 Image loadImage(const char *filename);
 
