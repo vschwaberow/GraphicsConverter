@@ -1,0 +1,22 @@
+# Compiled object files
+*.o
+*.obj
+
+# Compiled dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Executables
+*.exe
+*.out
+
+# CMake build directory
+build/
+
+# IDE specific files
+.vscode/
+.idea/
+
+# Dependency directories
+vendor/
