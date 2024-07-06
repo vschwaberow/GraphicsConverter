@@ -50,6 +50,7 @@ else()
 endif()
 
 find_package(OpenGL REQUIRED)
+find_package(spdlog REQUIRED)
 
 add_executable(GraphicsConverter
     src/Main.cpp
