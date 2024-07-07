@@ -20,6 +20,7 @@
 #include "ColorReducer.h"
 #include "Dithering.h"
 #include "GuiLogSink.h"
+#include "Logger.h"
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/basic_file_sink.h>
 
