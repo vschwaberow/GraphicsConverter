@@ -22,6 +22,25 @@ std::string openFileDialog()
     return "";
 }
 
+std::string saveFileDialog(const std::string &defaultName)
+{
+    nfdchar_t *outPath = nullptr;
+
+    std::string defaultDir = defaultName.substr(0, defaultName.find_last_of("/\\"));
+
+    nfdresult_t result = NFD_SaveDialog(
+        "kla",
+        defaultDir.empty() ? nullptr : defaultDir.c_str(),
+        &outPath);
+    if (result == NFD_OKAY)
+    {
+        std::string selectedPath(outPath);
+        free(outPath);
+        return selectedPath;
+    }
+    return "";
+}
+
 void createConvertedTexture(const std::vector<uint32_t> &pixels, int width, int height)
 {
     if (convertedTextureID != 0)
