@@ -61,6 +61,7 @@ add_executable(GraphicsConverter
     src/KoalaConverter.cpp
     src/STDImage.cpp
     src/Dithering.cpp
+    src/GuiLogSink.cpp
     ${IMGUI_SOURCES}
     ${NFD_SOURCES}
 )
