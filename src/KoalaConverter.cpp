@@ -8,10 +8,9 @@
 #include <fstream>
 #include <stdexcept>
 
-
 void KoalaConverter::convertImage(const std::vector<uint8_t> &pixelData, int width, int height)
 {
-    if (width != KOALA_WIDTH || height != KOALA_HEIGHT)
+    if (width != KoalaConverter::KOALA_WIDTH || height != KoalaConverter::KOALA_HEIGHT)
     {
         throw std::runtime_error("Image dimensions must be 160x200 for Koala format");
     }
@@ -21,11 +20,11 @@ void KoalaConverter::convertImage(const std::vector<uint8_t> &pixelData, int wid
     m_colorRam.resize(KOALA_COLOR_RAM_SIZE);
 
     // TODO: Implement proper color quantization, simplification, and dithering
-    for (int y = 0; y < KOALA_HEIGHT; y++)
+    for (int y = 0; y < KoalaConverter::KOALA_HEIGHT; y++)
     {
-        for (int x = 0; x < KOALA_WIDTH; x++)
+        for (int x = 0; x < KoalaConverter::KOALA_WIDTH; x++)
         {
-            int pixelIndex = (y * KOALA_WIDTH + x) * 3;
+            int pixelIndex = (y * KoalaConverter::KOALA_WIDTH + x) * 3;
             uint8_t r = pixelData[pixelIndex];
             uint8_t g = pixelData[pixelIndex + 1];
             uint8_t b = pixelData[pixelIndex + 2];
