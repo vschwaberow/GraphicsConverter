@@ -49,6 +49,9 @@ Image processedImage;
 bool imageLoaded = false;
 bool showDebugWindow = false;
 
+std::deque<LogMessage> logBuffer;
+const size_t MAX_LOG_BUFFER_SIZE = 1000;
+
 Image loadImage(const char *filename);
 
 #endif // MAIN_H
