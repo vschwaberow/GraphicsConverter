@@ -4,8 +4,7 @@
 // Author: Volker Schwaberow <volker@schwaberow.de>
 // Copyright (c) 2022 Volker Schwaberow
 
-#ifndef GUI_LOG_SINK_H
-#define GUI_LOG_SINK_H
+#pragma once
 
 #include <spdlog/sinks/base_sink.h>
 #include <deque>
@@ -32,5 +31,3 @@ private:
     std::deque<LogMessage> logBuffer;
     const size_t MAX_LOG_BUFFER_SIZE = 1000;
 };
-
-#endif // GUI_LOG_SINK_H

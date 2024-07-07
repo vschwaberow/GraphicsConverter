@@ -4,8 +4,7 @@
 // Author: Volker Schwaberow <volker@schwaberow.de>
 // Copyright (c) 2022 Volker Schwaberow
 
-#ifndef KOALACONVERTER_H
-#define KOALACONVERTER_H
+#pragma once
 
 #include "ImageConverter.h"
 #include <vector>
@@ -31,5 +30,3 @@ private:
     std::vector<uint8_t> m_colorRam;
     uint8_t m_backgroundColor;
 };
-
-#endif // KOALACONVERTER_H

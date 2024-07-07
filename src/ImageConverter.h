@@ -4,8 +4,7 @@
 // Author: Volker Schwaberow <volker@schwaberow.de>
 // Copyright (c) 2022 Volker Schwaberow
 
-#ifndef IMAGECONVERTER_H
-#define IMAGECONVERTER_H
+#pragma once
 
 #include <vector>
 #include <string>
@@ -18,5 +17,3 @@ public:
     virtual void convertImage(const std::vector<uint8_t> &pixelData, int width, int height) = 0;
     virtual void saveFile(const std::string &filename) const = 0;
 };
-
-#endif // IMAGECONVERTER_H

@@ -4,8 +4,7 @@
 // Author: Volker Schwaberow <volker@schwaberow.de>
 // Copyright (c) 2022 Volker Schwaberow
 
-#ifndef LOGGER_H
-#define LOGGER_H
+#pragma once
 
 #include <iostream>
 #include <spdlog/spdlog.h>
@@ -22,5 +21,3 @@ private:
     static std::shared_ptr<spdlog::logger> logger;
     static std::shared_ptr<GuiLogSink> guiSink;
 };
-
-#endif // LOGGER_H

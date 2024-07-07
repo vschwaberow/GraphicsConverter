@@ -4,8 +4,7 @@
 // Author: Volker Schwaberow <volker@schwaberow.de>
 // Copyright (c) 2022 Volker Schwaberow
 
-#ifndef MAIN_H
-#define MAIN_H
+#pragma once
 
 #include <cstddef>
 #include <vector>
@@ -48,5 +47,3 @@ bool showDebugWindow = false;
 std::shared_ptr<GuiLogSink> guiSink;
 
 Image loadImage(const char *filename);
-
-#endif // MAIN_H

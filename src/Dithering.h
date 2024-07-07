@@ -4,8 +4,8 @@
 // Author: Volker Schwaberow <volker@schwaberow.de>
 // Copyright (c) 2022 Volker Schwaberow
 
-#ifndef DITHERING_H
-#define DITHERING_H
+#pragma once
+
 #include <vector>
 #include <cstdint>
 #include <span>
@@ -33,5 +33,3 @@ private:
                                 int index, int x, int y, int width, int height);
     static constexpr std::array<int, 3> getRGB(uint32_t pixel);
 };
-
-#endif // DITHERING_H
