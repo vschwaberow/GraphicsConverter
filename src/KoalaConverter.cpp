@@ -8,6 +8,9 @@
 #include <fstream>
 #include <stdexcept>
 
+constexpr int KOALA_WIDTH = 160;
+constexpr int KOALA_HEIGHT = 200;
+
 void KoalaConverter::convertImage(const std::vector<uint8_t> &pixelData, int width, int height)
 {
     if (width != KOALA_WIDTH || height != KOALA_HEIGHT)
