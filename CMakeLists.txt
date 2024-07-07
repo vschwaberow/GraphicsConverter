@@ -22,6 +22,7 @@ fetch_content_if_not_exists(imgui https://github.com/ocornut/imgui.git v1.89.2)
 fetch_content_if_not_exists(glfw https://github.com/glfw/glfw.git 3.3.8)
 fetch_content_if_not_exists(stb https://github.com/nothings/stb.git master)
 fetch_content_if_not_exists(nativefiledialog https://github.com/mlabbe/nativefiledialog.git master)
+fetch_content_if_not_exists(fmt https://github.com/fmtlib/fmt.git 9.1.0)
 
 set(SPDLOG_BUILD_SHARED OFF CACHE BOOL "Build shared library" FORCE)
 set(SPDLOG_FMT_EXTERNAL OFF CACHE BOOL "Use external fmt library instead of bundled" FORCE)
@@ -51,6 +52,7 @@ endif()
 
 find_package(OpenGL REQUIRED)
 find_package(spdlog REQUIRED)
+find_package(fmt REQUIRED)
 
 add_executable(GraphicsConverter
     src/Main.cpp
@@ -81,6 +83,7 @@ target_link_libraries(GraphicsConverter PRIVATE
     glfw
     OpenGL::GL
     spdlog::spdlog
+    fmt::fmt
 )
 
 if(WIN32)
