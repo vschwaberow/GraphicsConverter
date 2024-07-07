@@ -19,8 +19,8 @@ function(fetch_content_if_not_exists name git_repo git_tag)
 endfunction()
 
 fetch_content_if_not_exists(fmt https://github.com/fmtlib/fmt.git 11.0.1)
-fetch_content_if_not_exists(imgui https://github.com/ocornut/imgui.git v1.89.2)
-fetch_content_if_not_exists(glfw https://github.com/glfw/glfw.git 3.3.8)
+fetch_content_if_not_exists(imgui https://github.com/ocornut/imgui.git v1.90.9)
+fetch_content_if_not_exists(glfw https://github.com/glfw/glfw.git 3.4)
 fetch_content_if_not_exists(stb https://github.com/nothings/stb.git master)
 fetch_content_if_not_exists(nativefiledialog https://github.com/mlabbe/nativefiledialog.git master)
 
