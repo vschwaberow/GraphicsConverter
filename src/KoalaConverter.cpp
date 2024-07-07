@@ -8,8 +8,6 @@
 #include <fstream>
 #include <stdexcept>
 
-static constexpr int KOALA_WIDTH = 160;
-static constexpr int KOALA_HEIGHT = 200;
 
 void KoalaConverter::convertImage(const std::vector<uint8_t> &pixelData, int width, int height)
 {

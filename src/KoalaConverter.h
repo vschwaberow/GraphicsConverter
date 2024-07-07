@@ -29,4 +29,6 @@ private:
     std::vector<uint8_t> m_screenRam;
     std::vector<uint8_t> m_colorRam;
     uint8_t m_backgroundColor;
+    static constexpr int KOALA_WIDTH = 160;
+    static constexpr int KOALA_HEIGHT = 200;
 };
