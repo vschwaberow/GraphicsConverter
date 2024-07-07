@@ -26,7 +26,10 @@ void initializeSpdlog()
 {
     try
     {
-        auto logger = spdlog::basic_logger_mt("gfxconverter", "logs/gfxconverter.log");
+        guiSink = std::make_shared<GuiLogSink>();
+        auto fileSink = std::make_shared<spdlog::sinks::basic_file_sink_mt>("logs/gfxconverter.log");
+
+        auto logger = std::make_shared<spdlog::logger>("gfxconverter", spdlog::sinks_init_list{guiSink, fileSink});
         spdlog::set_default_logger(logger);
         spdlog::set_level(spdlog::level::debug);
         spdlog::flush_on(spdlog::level::debug);
@@ -248,6 +251,37 @@ int main(int, char **)
             {
                 spdlog::error("This is an error message");
             }
+
+            ImGui::Separator();
+
+            ImGui::BeginChild("ScrollingRegion", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
+            for (const auto &logMsg : guiSink->getLogBuffer())
+            {
+                ImVec4 color;
+                switch (logMsg.level)
+                {
+                case spdlog::level::trace:
+                case spdlog::level::debug:
+                    color = ImVec4(0.5f, 0.5f, 0.5f, 1.0f);
+                    break;
+                case spdlog::level::info:
+                    color = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+                    break;
+                case spdlog::level::warn:
+                    color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f);
+                    break;
+                case spdlog::level::err:
+                case spdlog::level::critical:
+                    color = ImVec4(1.0f, 0.0f, 0.0f, 1.0f);
+                    break;
+                default:
+                    color = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+                }
+                ImGui::TextColored(color, "%s", logMsg.message.c_str());
+            }
+            if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
+                ImGui::SetScrollHereY(1.0f);
+            ImGui::EndChild();
 
             ImGui::End();
         }
