@@ -16,8 +16,8 @@
 #include <GLFW/glfw3.h>
 #include <stb_image.h>
 #include "Converter.h"
-#include "ColorReducer.h"
 #include "Dithering.h"
+#include "ColorReducer.h"
 #include "GuiLogSink.h"
 #include "Logger.h"
 #include <spdlog/spdlog.h>
