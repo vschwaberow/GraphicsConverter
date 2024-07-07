@@ -5,7 +5,22 @@
 // Copyright (c) 2022 Volker Schwaberow
 
 #include "Dithering.h"
-#include <span>
+
+
+std::string Dithering::getAlgorithmName(DitheringAlgorithm algo)
+{
+    switch (algo)
+    {
+    case DitheringAlgorithm::FloydSteinberg:
+        return "Floyd-Steinberg";
+    case DitheringAlgorithm::Bayer:
+        return "Bayer";
+    case DitheringAlgorithm::Ordered:
+        return "Ordered";
+    default:
+        return "Unknown";
+    }
+}
 
 std::vector<uint32_t> Dithering::applyDithering(const std::vector<uint32_t> &image, int width, int height, const std::vector<uint32_t> &palette, DitheringAlgorithm algo)
 {
