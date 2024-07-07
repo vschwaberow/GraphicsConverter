@@ -11,6 +11,8 @@
 #include <span>
 #include <array>
 #include <algorithm>
+#include <span>
+#include <string>
 
 enum class DitheringAlgorithm
 {
@@ -23,6 +25,7 @@ class Dithering
 {
 public:
     static std::vector<uint32_t> applyDithering(const std::vector<uint32_t> &image, int width, int height, const std::vector<uint32_t> &palette, DitheringAlgorithm algo);
+    static std::string getAlgorithmName(DitheringAlgorithm algo);
 
 private:
     static std::vector<uint32_t> floydSteinberg(std::span<const uint32_t> image, int width, int height, std::span<const uint32_t> palette);
