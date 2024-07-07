@@ -105,8 +105,36 @@ std::vector<uint32_t> Dithering::floydSteinberg(std::span<const uint32_t> image,
 
 std::vector<uint32_t> Dithering::bayer(const std::vector<uint32_t> &image, int width, int height, const std::vector<uint32_t> &palette)
 {
-    // TODO Implement Bayer dithering
-    return image;
+    std::vector<uint32_t> result(image.size());
+
+    const int bayerMatrix[4][4] = {
+        {0, 8, 2, 10},
+        {12, 4, 14, 6},
+        {3, 11, 1, 9},
+        {15, 7, 13, 5}};
+
+    for (int y = 0; y < height; ++y)
+    {
+        for (int x = 0; x < width; ++x)
+        {
+            int index = y * width + x;
+            uint32_t pixel = image[index];
+
+            std::array<int, 3> rgb = getRGB(pixel);
+
+            // Apply Bayer dithering
+            int threshold = bayerMatrix[y % 4][x % 4];
+            for (int i = 0; i < 3; ++i)
+            {
+                rgb[i] = std::clamp(rgb[i] + (threshold - 8) * 4, 0, 255);
+            }
+
+            uint32_t newPixel = findClosestColor(rgb[0], rgb[1], rgb[2], palette);
+            result[index] = newPixel;
+        }
+    }
+
+    return result;
 }
 
 std::vector<uint32_t> Dithering::ordered(const std::vector<uint32_t> &image, int width, int height, const std::vector<uint32_t> &palette)
