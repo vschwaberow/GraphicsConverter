@@ -26,7 +26,7 @@ fetch_content_if_not_exists(fmt https://github.com/fmtlib/fmt.git 9.1.0)
 
 set(SPDLOG_BUILD_SHARED OFF CACHE BOOL "Build shared library" FORCE)
 set(SPDLOG_FMT_EXTERNAL OFF CACHE BOOL "Use external fmt library instead of bundled" FORCE)
-fetch_content_if_not_exists(spdlog https://github.com/gabime/spdlog.git v1.10.0)
+fetch_content_if_not_exists(spdlog https://github.com/gabime/spdlog.git v1.11.0)
 
 set(IMGUI_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/imgui.cpp
