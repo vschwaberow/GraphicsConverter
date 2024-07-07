@@ -62,6 +62,7 @@ add_executable(GraphicsConverter
     src/STDImage.cpp
     src/Dithering.cpp
     src/GuiLogSink.cpp
+    src/Logger.cpp
     ${IMGUI_SOURCES}
     ${NFD_SOURCES}
 )
