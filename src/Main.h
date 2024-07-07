@@ -31,6 +31,12 @@ struct Image
     GLuint textureID;
 };
 
+struct LogMessage
+{
+    spdlog::level::level_enum level;
+    std::string message;
+};
+
 GLuint originalTextureID = 0;
 GLuint convertedTextureID = 0;
 int originalImageWidth = 0;
