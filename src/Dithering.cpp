@@ -139,6 +139,37 @@ std::vector<uint32_t> Dithering::bayer(const std::vector<uint32_t> &image, int w
 
 std::vector<uint32_t> Dithering::ordered(const std::vector<uint32_t> &image, int width, int height, const std::vector<uint32_t> &palette)
 {
-    // TODO: Implement Ordered dithering
-    return image; // Placeholder
+    std::vector<uint32_t> result(image.size());
+
+    const int orderedMatrix[8][8] = {
+        {0, 48, 12, 60, 3, 51, 15, 63},
+        {32, 16, 44, 28, 35, 19, 47, 31},
+        {8, 56, 4, 52, 11, 59, 7, 55},
+        {40, 24, 36, 20, 43, 27, 39, 23},
+        {2, 50, 14, 62, 1, 49, 13, 61},
+        {34, 18, 46, 30, 33, 17, 45, 29},
+        {10, 58, 6, 54, 9, 57, 5, 53},
+        {42, 26, 38, 22, 41, 25, 37, 21}};
+
+    for (int y = 0; y < height; ++y)
+    {
+        for (int x = 0; x < width; ++x)
+        {
+            int index = y * width + x;
+            uint32_t pixel = image[index];
+
+            std::array<int, 3> rgb = getRGB(pixel);
+
+            int threshold = orderedMatrix[y % 8][x % 8];
+            for (int i = 0; i < 3; ++i)
+            {
+                rgb[i] = std::clamp(rgb[i] + (threshold - 32) * 2, 0, 255);
+            }
+
+            uint32_t newPixel = findClosestColor(rgb[0], rgb[1], rgb[2], palette);
+            result[index] = newPixel;
+        }
+    }
+
+    return result;
 }
