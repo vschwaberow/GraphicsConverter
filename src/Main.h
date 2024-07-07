@@ -19,6 +19,7 @@
 #include "Converter.h"
 #include "ColorReducer.h"
 #include "Dithering.h"
+#include "GuiLogSink.h"
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/basic_file_sink.h>
 
@@ -29,12 +30,6 @@ struct Image
     int channels;
     unsigned char *data;
     GLuint textureID;
-};
-
-struct LogMessage
-{
-    spdlog::level::level_enum level;
-    std::string message;
 };
 
 GLuint originalTextureID = 0;
@@ -49,8 +44,7 @@ Image processedImage;
 bool imageLoaded = false;
 bool showDebugWindow = false;
 
-std::deque<LogMessage> logBuffer;
-const size_t MAX_LOG_BUFFER_SIZE = 1000;
+std::shared_ptr<GuiLogSink> guiSink;
 
 Image loadImage(const char *filename);
 
