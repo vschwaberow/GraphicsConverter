@@ -23,7 +23,7 @@ fetch_content_if_not_exists(imgui https://github.com/ocornut/imgui.git v1.90.9)
 fetch_content_if_not_exists(glfw https://github.com/glfw/glfw.git 3.4)
 fetch_content_if_not_exists(stb https://github.com/nothings/stb.git master)
 fetch_content_if_not_exists(nativefiledialog https://github.com/mlabbe/nativefiledialog.git master)
-fetch_content_if_not_exists(googletest https://github.com/google/googletest.git 1.14.0)
+fetch_content_if_not_exists(googletest https://github.com/google/googletest.git v1.14.0)
 
 set(SPDLOG_BUILD_SHARED OFF CACHE BOOL "Build shared library" FORCE)
 set(SPDLOG_FMT_EXTERNAL OFF CACHE BOOL "Use external fmt library instead of bundled" FORCE)
