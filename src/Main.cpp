@@ -207,11 +207,13 @@ int main(int, char **)
             // TODO: Implement dithering
             // std::vector<uint32_t> ditheredImage = Dithering::applyDithering(reducedImage, width, height, palette, currentDitheringAlgo);
         }
-
+        ImGui::EndDisabled();
         if (ImGui::Button("Toggle Debug Window"))
         {
             showDebugWindow = !showDebugWindow;
         }
+
+        ImGui::BeginDisabled(!imageLoaded);
 
         if (imageLoaded && originalTextureID != 0)
         {
