@@ -187,9 +187,9 @@ int main(int, char **)
                 }
 
                 std::vector<uint32_t> reducedImage = ColorReducer::reduceColors(imageData, originalImage.width, originalImage.height, targetColors, currentColorAlgo);
-
+                spdlog::debug("Called ColorReducer::reduceColors() with {} colors and algorithm {}", targetColors, ColorReducer::getColorReducerName(currentColorAlgo));
                 createConvertedTexture(reducedImage, originalImage.width, originalImage.height);
-
+                spdlog::debug("Reduced image to {} colors and has a size of {} bytes", targetColors, reducedImage.size() * sizeof(uint32_t));
                 spdlog::info("Applied color reduction: {} colors", targetColors);
             }
         }

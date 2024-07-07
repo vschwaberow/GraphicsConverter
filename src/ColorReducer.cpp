@@ -14,17 +14,40 @@ int colorDistance(const Color &c1, const Color &c2)
     return dr * dr + dg * dg + db * db;
 }
 
-std::vector<uint32_t> ColorReducer::reduceColors(const std::vector<uint32_t> &image, int width, int height, int targetColors, ColorReductionAlgorithm algo)
+std::string ColorReducer::getColorReducerName(ColorReductionAlgorithm algo)
 {
     switch (algo)
     {
     case ColorReductionAlgorithm::MedianCut:
-        return medianCut(image, targetColors);
+        return "MedianCut";
     case ColorReductionAlgorithm::KMeans:
-        return kMeans(image, targetColors);
+        return "KMeans";
     case ColorReductionAlgorithm::OctreeQuantization:
-        return octreeQuantization(image, targetColors);
+        return "OctreeQuantization";
     default:
+        return "Unknown";
+    }
+}
+
+std::vector<uint32_t> ColorReducer::reduceColors(const std::vector<uint32_t> &image, int width, int height, int targetColors, ColorReductionAlgorithm algo)
+{
+    try
+    {
+        switch (algo)
+        {
+        case ColorReductionAlgorithm::MedianCut:
+            return medianCut(image, targetColors);
+        case ColorReductionAlgorithm::KMeans:
+            return kMeans(image, targetColors);
+        case ColorReductionAlgorithm::OctreeQuantization:
+            return octreeQuantization(image, targetColors);
+        default:
+            return image;
+        }
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "Error: " << e.what() << std::endl;
         return image;
     }
 }

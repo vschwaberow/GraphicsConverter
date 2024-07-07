@@ -13,6 +13,7 @@
 #include <cmath>
 #include <limits>
 #include <random>
+#include <iostream>
 
 enum class ColorReductionAlgorithm
 {
@@ -145,6 +146,7 @@ class ColorReducer
 {
 public:
     static std::vector<uint32_t> reduceColors(const std::vector<uint32_t> &image, int width, int height, int targetColors, ColorReductionAlgorithm algo);
+    static std::string getColorReducerName(ColorReductionAlgorithm algo);
 
 private:
     static std::vector<uint32_t> medianCut(const std::vector<uint32_t> &image, int targetColors);
