@@ -199,8 +199,33 @@ int main(int, char **)
         ImGui::Combo("Dithering Algorithm", (int *)&currentDitheringAlgo, "Floyd-Steinberg\0Bayer\0Ordered\0");
         if (ImGui::Button("Apply Dithering"))
         {
-            // TODO: Implement dithering
-            // std::vector<uint32_t> ditheredImage = Dithering::applyDithering(reducedImage, width, height, palette, currentDitheringAlgo);
+            std::vector<uint32_t> imageData(originalImage.width * originalImage.height);
+            for (int i = 0; i < originalImage.width * originalImage.height; ++i)
+            {
+                imageData[i] = ((uint32_t *)originalImage.data)[i];
+            }
+
+            std::vector<uint32_t> reducedImage = ColorReducer::reduceColors(imageData, originalImage.width, originalImage.height, targetColors, currentColorAlgo);
+
+            std::vector<uint32_t> palette;
+            for (uint32_t color : reducedImage)
+            {
+                if (std::find(palette.begin(), palette.end(), color) == palette.end())
+                {
+                    palette.push_back(color);
+                }
+                if (palette.size() >= static_cast<size_t>(targetColors))
+                {
+                    break;
+                }
+            }
+
+            std::vector<uint32_t> ditheredImage = Dithering::applyDithering(imageData, originalImage.width, originalImage.height, palette, currentDitheringAlgo);
+
+            createConvertedTexture(ditheredImage, originalImage.width, originalImage.height);
+
+            spdlog::info("Applied dithering: {} algorithm with {} colors",
+                         Dithering::getAlgorithmName(currentDitheringAlgo), targetColors);
         }
         ImGui::EndDisabled();
         if (ImGui::Button("Toggle Debug Window"))
