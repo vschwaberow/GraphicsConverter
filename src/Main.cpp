@@ -178,8 +178,20 @@ int main(int, char **)
         ImGui::SliderInt("Target Colors", &targetColors, 2, 256);
         if (ImGui::Button("Apply Color Reduction"))
         {
-            // TODO: Implement color reduction
-            // std::vector<uint32_t> reducedImage = ColorReducer::reduceColors(originalImage, width, height, targetColors, currentColorAlgo);
+            if (imageLoaded)
+            {
+                std::vector<uint32_t> imageData(originalImage.width * originalImage.height);
+                for (int i = 0; i < originalImage.width * originalImage.height; ++i)
+                {
+                    imageData[i] = ((uint32_t *)originalImage.data)[i];
+                }
+
+                std::vector<uint32_t> reducedImage = ColorReducer::reduceColors(imageData, originalImage.width, originalImage.height, targetColors, currentColorAlgo);
+
+                createConvertedTexture(reducedImage, originalImage.width, originalImage.height);
+
+                spdlog::info("Applied color reduction: {} colors", targetColors);
+            }
         }
 
         ImGui::Separator();
