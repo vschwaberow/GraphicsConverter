@@ -47,7 +47,7 @@ TEST_F(ColorReducerTest, ReduceColorsKMeans)
 
 TEST_F(ColorReducerTest, ReduceColorsOctree)
 {
-    std::vector<uint32_t> result = ColorReducer::reduceColors(testImage, 4, 4, 8, ColorReductionAlgorithm::Octree);
+    std::vector<uint32_t> result = ColorReducer::reduceColors(testImage, 4, 4, 8, ColorReductionAlgorithm::OctreeQuantization);
 
     ASSERT_EQ(result.size(), testImage.size());
 
@@ -95,12 +95,29 @@ TEST_F(ColorReducerTest, ConsistentResults)
 
 TEST_F(ColorReducerTest, HandlesMonochromeImage)
 {
-    std::vector<uint32_t> monochromeImage(16, 0xFF0000FF); // All red pixels
+    std::vector<uint32_t> monochromeImage(16, 0xFF0000FF);
     std::vector<uint32_t> result = ColorReducer::reduceColors(monochromeImage, 4, 4, 8, ColorReductionAlgorithm::MedianCut);
 
     ASSERT_EQ(result.size(), monochromeImage.size());
 
     std::set<uint32_t> uniqueColors(result.begin(), result.end());
     EXPECT_EQ(uniqueColors.size(), 1);
-    EXPECT_EQ(*uniqueColors.begin(), 0xFF0000FF);
+
+    uint32_t resultColor = *uniqueColors.begin();
+    uint8_t r = (resultColor >> 24) & 0xFF;
+    uint8_t g = (resultColor >> 16) & 0xFF;
+    uint8_t b = (resultColor >> 8) & 0xFF;
+    uint8_t a = resultColor & 0xFF;
+
+    EXPECT_EQ(r, 255) << "Red channel mismatch";
+    EXPECT_EQ(g, 0) << "Green channel mismatch";
+    EXPECT_EQ(b, 0) << "Blue channel mismatch";
+    EXPECT_EQ(a, 255) << "Alpha channel mismatch";
+
+    EXPECT_EQ(resultColor, 0xFF0000FF) << "Full color mismatch. Got: "
+                                       << std::hex << resultColor
+                                       << " (R:" << (int)r
+                                       << " G:" << (int)g
+                                       << " B:" << (int)b
+                                       << " A:" << (int)a << ")";
 }
