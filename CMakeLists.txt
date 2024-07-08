@@ -20,6 +20,7 @@ function(fetch_content_if_not_exists name git_repo git_tag)
     endif()
 endfunction()
 
+fetch_content_if_not_exists(spdlog https://github.com/gabime/spdlog.git v1.14.1)
 fetch_content_if_not_exists(fmt https://github.com/fmtlib/fmt.git 11.0.1)
 fetch_content_if_not_exists(imgui https://github.com/ocornut/imgui.git v1.90.9)
 fetch_content_if_not_exists(glfw https://github.com/glfw/glfw.git 3.4)
@@ -29,7 +30,6 @@ fetch_content_if_not_exists(googletest https://github.com/google/googletest.git 
 
 set(SPDLOG_BUILD_SHARED OFF CACHE BOOL "Build shared library" FORCE)
 set(SPDLOG_FMT_EXTERNAL OFF CACHE BOOL "Use external fmt library instead of bundled" FORCE)
-fetch_content_if_not_exists(spdlog https://github.com/gabime/spdlog.git v1.14.1)
 
 set(IMGUI_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/imgui.cpp
