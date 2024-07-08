@@ -90,7 +90,7 @@ add_library(GraphicsConverterLib STATIC
 target_include_directories(GraphicsConverterLib PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/backends
-    ${CMAKE_CURRENTstb_SOURCE_DIR}/vendor/
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/stb
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/nativefiledialog/src/include
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_CURRENT_SOURCE_DIR}/src
@@ -100,7 +100,7 @@ target_include_directories(GraphicsConverterLib PUBLIC
 target_include_directories(GraphicsConverter PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/backends
-    ${CMAKE_CURRENTstb_SOURCE_DIR}/vendor/
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/stb
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/nativefiledialog/src/include
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_CURRENT_SOURCE_DIR}/src
