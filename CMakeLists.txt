@@ -21,6 +21,7 @@ function(fetch_content_if_not_exists name git_repo git_tag)
 endfunction()
 
 fetch_content_if_not_exists(spdlog https://github.com/gabime/spdlog.git v1.14.1)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/vendor/spdlog)
 fetch_content_if_not_exists(fmt https://github.com/fmtlib/fmt.git 11.0.1)
 fetch_content_if_not_exists(imgui https://github.com/ocornut/imgui.git v1.90.9)
 fetch_content_if_not_exists(glfw https://github.com/glfw/glfw.git 3.4)
@@ -54,7 +55,6 @@ else()
 endif()
 
 find_package(OpenGL REQUIRED)
-find_package(spdlog REQUIRED)
 find_package(fmt REQUIRED)
 find_package(glfw3 REQUIRED)
 
@@ -115,7 +115,7 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 target_link_libraries(GraphicsConverter PRIVATE
     glfw
     OpenGL::GL
-    spdlog::spdlog
+    spdlog
     fmt::fmt
 )
 
@@ -125,7 +125,7 @@ target_link_libraries(GraphicsConverterTests PRIVATE
 )
 
 target_link_libraries(GraphicsConverterLib PUBLIC
-    spdlog::spdlog
+    spdlog
     fmt::fmt
 )
 
