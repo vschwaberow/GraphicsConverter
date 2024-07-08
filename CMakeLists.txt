@@ -29,7 +29,7 @@ fetch_content_if_not_exists(googletest https://github.com/google/googletest.git 
 
 set(SPDLOG_BUILD_SHARED OFF CACHE BOOL "Build shared library" FORCE)
 set(SPDLOG_FMT_EXTERNAL OFF CACHE BOOL "Use external fmt library instead of bundled" FORCE)
-fetch_content_if_not_exists(spdlog https://github.com/gabime/spdlog.git v1.14.1)
+fetch_content_if_not_exists(spdlog https://github.com/gabime/spdlog.git "Version 1.14.1")
 
 set(IMGUI_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/imgui.cpp
