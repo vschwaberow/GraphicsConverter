@@ -350,4 +350,4 @@ int main(int, char **)
     glfwTerminate();
 
     return 0;
-}
+} // end of main
