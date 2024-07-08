@@ -4,6 +4,8 @@ project(GraphicsConverter)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+enable_testing()
+
 include(FetchContent)
 
 function(fetch_content_if_not_exists name git_repo git_tag)
@@ -57,6 +59,8 @@ find_package(fmt REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(gtests REQUIRED)
 
+include(GoogleTest)
+
 add_executable(GraphicsConverter
     src/Main.cpp
     src/Converter.cpp
@@ -68,6 +72,25 @@ add_executable(GraphicsConverter
     src/Logger.cpp
     ${IMGUI_SOURCES}
     ${NFD_SOURCES}
+)
+
+add_executable(GraphicsConverterTests
+    test/ColorReducerTests.cpp
+)
+
+add_library(GraphicsConverterLib STATIC
+    src/Converter.cpp
+    src/ColorReducer.cpp
+    src/KoalaConverter.cpp
+    src/STDImage.cpp
+    src/Dithering.cpp
+    src/GuiLogSink.cpp
+    src/Logger.cpp
+)
+
+target_include_directories(GraphicsConverterLib PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
 target_include_directories(GraphicsConverter PRIVATE
@@ -91,6 +114,18 @@ target_link_libraries(GraphicsConverter PRIVATE
     fmt::fmt
 )
 
+target_link_libraries(GraphicsConverterTests PRIVATE
+    gtest
+    gtest_main
+)
+
+target_link_libraries(GraphicsConverterLib PUBLIC
+    spdlog::spdlog
+    fmt::fmt
+)
+
+gtest_discover_tests(GraphicsConverterTests)
+
 if(WIN32)
     target_compile_definitions(GraphicsConverter PRIVATE -DWIN32)
 elseif(APPLE)
@@ -102,6 +137,12 @@ else()
     target_include_directories(GraphicsConverter PRIVATE ${GTK3_INCLUDE_DIRS})
     target_compile_options(GraphicsConverter PRIVATE ${GTK3_CFLAGS_OTHER})
 endif()
+
+# Link GraphicsConverterLib to your main executable
+target_link_libraries(GraphicsConverter PRIVATE GraphicsConverterLib)
+
+# Link GraphicsConverterLib to your test executable
+target_link_libraries(GraphicsConverterTests PRIVATE GraphicsConverterLib)
 
 target_compile_definitions(GraphicsConverter PRIVATE NFD_STATIC)
 
