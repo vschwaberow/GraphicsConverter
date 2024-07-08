@@ -183,12 +183,12 @@ int main(int, char **)
 
         if (ImGui::Button("Convert Koala to PNG"))
         {
-            convertKoalaToPNG("input.kla", "output.png");
+            Converter::convertKoalaToPNG("input.kla", "output.png");
         }
 
         if (ImGui::Button("Convert PNG to Koala"))
         {
-            convertPNGToKoala("input.png", "output.kla");
+            Converter::convertPNGToKoala("input.png", "output.kla");
         }
 
         ImGui::Separator();
