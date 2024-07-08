@@ -32,8 +32,10 @@ The following dependencies are automatically fetched and built by CMake:
 ### Build Instructions
 
 1. Clone the repository:
+```bash
 git clone https://github.com/vschwaberow/GraphicsConverter.git
 cd GraphicsConverter
+```
 
 2. Use the build scripts to compile the project:
 ```bash
