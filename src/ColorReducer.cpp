@@ -33,6 +33,11 @@ std::vector<uint32_t> ColorReducer::reduceColors(const std::vector<uint32_t> &im
 {
     try
     {
+        // Check if all pixels are the same, so its mono color
+        if (std::adjacent_find(image.begin(), image.end(), std::not_equal_to<>()) == image.end())
+        {
+            return image;
+        }
         switch (algo)
         {
         case ColorReductionAlgorithm::MedianCut:
