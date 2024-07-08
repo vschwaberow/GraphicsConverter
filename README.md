@@ -35,18 +35,23 @@ The following dependencies are automatically fetched and built by CMake:
 git clone https://github.com/vschwaberow/GraphicsConverter.git
 cd GraphicsConverter
 
-2. Create a build directory:
+2. Use the build scripts to compile the project:
+```bash
+./compile.sh
+```
+
+Or the PowerShell script on Windows:
+```powershell
+.\compile.ps1
+```
+
+Or manually with CMake:
+```bash
 mkdir build
 cd build
-
-3. Run CMake:
 cmake ..
-
-4. Build the project:
 cmake --build .
-
-5. Run the application:
-./GraphicsConverter
+```
 
 ## Usage
 
