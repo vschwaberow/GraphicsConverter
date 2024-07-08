@@ -75,6 +75,7 @@ add_executable(GraphicsConverter
 
 add_executable(GraphicsConverterTests
     tests/ColorReducerTests.cpp
+    tests/ConverterTests.cpp
 )
 
 add_library(GraphicsConverterLib STATIC
