@@ -47,7 +47,7 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update
-        sudo apt-get install -y libwayland-dev wayland-protocols libxkbcommon-dev libegl1-mesa-dev
+        sudo apt-get install -y libwayland-dev wayland-protocols libxkbcommon-dev libegl1-mesa-dev libxrandr
 
     - name: Configure CMake
       run: >
