@@ -33,7 +33,6 @@ std::vector<uint32_t> ColorReducer::reduceColors(const std::vector<uint32_t> &im
 {
     try
     {
-        // Check if all pixels are the same, so its mono color
         if (std::adjacent_find(image.begin(), image.end(), std::not_equal_to<>()) == image.end())
         {
             return image;
@@ -148,7 +147,6 @@ std::vector<uint32_t> ColorReducer::kMeans(const std::vector<uint32_t> &image, i
     std::vector<Color> centroids;
     centroids.reserve(targetColors);
 
-    // Initialize centroids randomly
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(0, image.size() - 1);

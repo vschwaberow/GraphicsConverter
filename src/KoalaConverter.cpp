@@ -10,7 +10,7 @@
 
 void KoalaConverter::convertImage(const std::vector<uint8_t> &pixelData, int width, int height)
 {
-    if (width != KoalaConverter::KOALA_WIDTH || height != KoalaConverter::KOALA_HEIGHT)
+    if (width != KOALA_WIDTH || height != KOALA_HEIGHT)
     {
         throw std::runtime_error("Image dimensions must be 160x200 for Koala format");
     }
@@ -18,18 +18,20 @@ void KoalaConverter::convertImage(const std::vector<uint8_t> &pixelData, int wid
     m_bitmap.resize(KOALA_BITMAP_SIZE);
     m_screenRam.resize(KOALA_SCREEN_RAM_SIZE);
     m_colorRam.resize(KOALA_COLOR_RAM_SIZE);
+    std::fill(m_bitmap.begin(), m_bitmap.end(), 0);
+    std::fill(m_screenRam.begin(), m_screenRam.end(), 0);
+    std::fill(m_colorRam.begin(), m_colorRam.end(), 0);
 
-    // TODO: Implement proper color quantization, simplification, and dithering
-    for (int y = 0; y < KoalaConverter::KOALA_HEIGHT; y++)
+    for (int y = 0; y < KOALA_HEIGHT; ++y)
     {
-        for (int x = 0; x < KoalaConverter::KOALA_WIDTH; x++)
+        for (int x = 0; x < KOALA_WIDTH; ++x)
         {
-            int pixelIndex = (y * KoalaConverter::KOALA_WIDTH + x) * 3;
+            int pixelIndex = (y * KOALA_WIDTH + x) * 3;
             uint8_t r = pixelData[pixelIndex];
             uint8_t g = pixelData[pixelIndex + 1];
             uint8_t b = pixelData[pixelIndex + 2];
 
-            uint8_t colorIndex = (r > 128 ? 4 : 0) | (g > 128 ? 2 : 0) | (b > 128 ? 1 : 0);
+            uint8_t colorIndex = (r > 128) << 2 | (g > 128) << 1 | (b > 128);
 
             int charX = x / 4;
             int charY = y / 8;
@@ -38,7 +40,7 @@ void KoalaConverter::convertImage(const std::vector<uint8_t> &pixelData, int wid
 
             m_bitmap[charIndex * 8 + bitIndex / 8] |= (colorIndex & 3) << (6 - (bitIndex % 8));
 
-            if (x % 4 == 0 && y % 8 == 0)
+            if ((x % 4 == 0) && (y % 8 == 0))
             {
                 m_screenRam[charIndex] = colorIndex & 0xF;
                 m_colorRam[charIndex] = (colorIndex >> 4) & 0xF;

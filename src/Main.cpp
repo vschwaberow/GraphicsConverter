@@ -115,6 +115,20 @@ Image loadImage(const char *filename)
     return img;
 }
 
+void showConvertedImage(const std::vector<uint32_t>& ditheredImage, int width, int height) {
+    static GLuint textureID = 0;
+    if (textureID == 0) {
+        glGenTextures(1, &textureID);
+    }
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, ditheredImage.data());
+    ImGui::Begin("Converted picture preview");
+    ImGui::Image((void*)(intptr_t)textureID, ImVec2(width, height));
+    ImGui::End();
+}
+
 int main(int, char **)
 {
 
@@ -216,35 +230,27 @@ int main(int, char **)
         ImGui::Separator();
         ImGui::Text("Dithering");
         ImGui::Combo("Dithering Algorithm", (int *)&currentDitheringAlgo, "Floyd-Steinberg\0Bayer\0Ordered\0");
-        if (ImGui::Button("Apply Dithering"))
-        {
+        if (ImGui::Button("Apply Dithering")) {
             std::vector<uint32_t> imageData(originalImage.width * originalImage.height);
-            for (int i = 0; i < originalImage.width * originalImage.height; ++i)
-            {
+            for (int i = 0; i < originalImage.width * originalImage.height; ++i) {
                 imageData[i] = ((uint32_t *)originalImage.data)[i];
             }
 
             std::vector<uint32_t> reducedImage = ColorReducer::reduceColors(imageData, originalImage.width, originalImage.height, targetColors, currentColorAlgo);
-
             std::vector<uint32_t> palette;
-            for (uint32_t color : reducedImage)
-            {
-                if (std::find(palette.begin(), palette.end(), color) == palette.end())
-                {
+            for (uint32_t color : reducedImage) {
+                if (std::find(palette.begin(), palette.end(), color) == palette.end()) {
                     palette.push_back(color);
                 }
-                if (palette.size() >= static_cast<size_t>(targetColors))
-                {
+                if (palette.size() >= static_cast<size_t>(targetColors)) {
                     break;
                 }
             }
 
             std::vector<uint32_t> ditheredImage = Dithering::applyDithering(imageData, originalImage.width, originalImage.height, palette, currentDitheringAlgo);
-
             createConvertedTexture(ditheredImage, originalImage.width, originalImage.height);
-
-            spdlog::info("Applied dithering: {} algorithm with {} colors",
-                         Dithering::getAlgorithmName(currentDitheringAlgo), targetColors);
+            showConvertedImage(ditheredImage, originalImage.width, originalImage.height);
+            spdlog::info("Applied dithering: {} algorithm with {} colors", Dithering::getAlgorithmName(currentDitheringAlgo), targetColors);
         }
         ImGui::EndDisabled();
         if (ImGui::Button("Toggle Debug Window"))
